@@ -1,36 +1,49 @@
 <ion-header>
-  <ion-navbar color="dark">
-    <ion-title>
-      GitHub Finder
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="logout()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar color="dark">
+        <ion-title>
+            GitHub Finder
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="logout()">
+                <ion-icon name="log-out"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="home" padding>
-  <h3>Welcome inside, {{username}}!</h3>
-  <div class="search-box">
-    <form (ngSubmit)="getRepos()" #searchGitUsers="ngForm">
-      <ion-list inset>
-        <ion-item>
-          <ion-input type="text" placeholder="Github username" name="gitusername" [(ngModel)]="gituser" required></ion-input>
-        </ion-item>
-      </ion-list>
-      <div padding>
-        <button ion-button class="search-btn" full type="submit" [disabled]="!searchGitUsers.form.valid">Get Repos</button>
-      </div>
-    </form>
-  </div>
-  <ion-card *ngFor="let repo of foundRepos">
-    <ion-card-header>
-      {{ repo.name }}
-    </ion-card-header>
-    <ion-card-content>
-      {{ repo.description }}
-    </ion-card-content>
-  </ion-card>
+    <h3>Welcome inside, {{ username }}!</h3>
+    <div class="search-box">
+        <form (ngSubmit)="getRepos()" #searchGitUsers="ngForm">
+            <ion-list inset>
+                <ion-item>
+                    <ion-input type="text" placeholder="Github username" name="gitusername" [(ngModel)]="gituser"
+                               required></ion-input>
+                </ion-item>
+            </ion-list>
+            <div padding>
+                <button ion-button class="search-btn" full type="submit" [disabled]="!searchGitUsers.form.valid">Get
+                    Repos
+                </button>
+            </div>
+        </form>
+    </div>
+    <ion-card *ngIf="foundRepos.length==0">
+        <ion-card-content>
+            No results found for user
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!userFound">
+        <ion-card-content>
+            User not found
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngFor="let repo of foundRepos">
+        <ion-card-header>
+            {{ repo.name }}
+        </ion-card-header>
+        <ion-card-content>
+            {{ repo.description }}
+        </ion-card-content>
+    </ion-card>
 </ion-content>
